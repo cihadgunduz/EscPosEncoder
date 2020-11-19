@@ -46,9 +46,9 @@ export default class EscPosEncoder {
      *
      * @returns {number} 每行的单字节长度
      */
-    protected get singleCharLengthPerLine(): number {
-      return Math.floor(this._size===2?this._printerParam.singleCharLength/2:this._printerParam.singleCharLength);
-    }
+    // protected get singleCharLengthPerLine(): number {
+    //   return Math.floor(this._size===2?this._printerParam.singleCharLength/2:this._printerParam.singleCharLength);
+    // }
 
     /**
      * Create a new EscPosEncoder
