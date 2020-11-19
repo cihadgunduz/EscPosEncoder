@@ -187,19 +187,19 @@ export default class EscPosEncoder {
      * @param {boolean} middle 提示信息显示在行间
      * @returns {EscPosEncoder}  Return the EscPosEncoder, for easy chaining commands
      */
-    printLine(char: string, message='', middle= false): EscPosEncoder {
-      char = char.slice(0, 1);
-      const restLength = this.singleCharLengthPerLine - this.getStrWidth(message);
-      if (middle) {
-        this.line(char.repeat(Math.floor(restLength/2))+message+char.repeat(Math.ceil(restLength/2)));
-      } else {
-        this.line(char.repeat(this.singleCharLengthPerLine));
-        if (message) {
-          this.line(' '.repeat(Math.floor(restLength/2))+message+' '.repeat(Math.ceil(restLength/2)));
-        }
-      }
-      return this;
-    }
+    // printLine(char: string, message='', middle= false): EscPosEncoder {
+    //   char = char.slice(0, 1);
+    //   const restLength = this.singleCharLengthPerLine - this.getStrWidth(message);
+    //   if (middle) {
+    //     this.line(char.repeat(Math.floor(restLength/2))+message+char.repeat(Math.ceil(restLength/2)));
+    //   } else {
+    //     this.line(char.repeat(this.singleCharLengthPerLine));
+    //     if (message) {
+    //       this.line(' '.repeat(Math.floor(restLength/2))+message+' '.repeat(Math.ceil(restLength/2)));
+    //     }
+    //   }
+    //   return this;
+    // }
 
     /**
      * 打印空行
@@ -221,35 +221,35 @@ export default class EscPosEncoder {
      * @param {number} size 字体大小,默认1
      * @returns {EscPosEncoder}  Return the EscPosEncoder, for easy chaining commands
      */
-    printFrontDeskDishs(dishes: {name: string; count: number; price: number}[], size=1): EscPosEncoder {
-      const originSize = this._size;
-      const countAndPriceLength = 10; // 价格和个数的长度
-      const getCountAndPriceStr = (count: number, price: number): string => {
-        const priceStr = price.toFixed(2);
-        const countStr = 'x' + count;
-        const spaceNum = countAndPriceLength - this.getStrWidth(countStr) - this.getStrWidth(priceStr);
-        return countStr + ' '.repeat(spaceNum<0?0:spaceNum) + priceStr;
-      };
-      this.size(size);
-      dishes.forEach((dish) => {
-        if (dish.count<=0) {
-          return;
-        }
-        const fixedWidthStrArr = this.splitByWidth(
-            dish.name,
-            this.singleCharLengthPerLine-countAndPriceLength-2
-        );
-        fixedWidthStrArr.forEach((str, index) => {
-          if (index === 0) {
-            this.oneLine(str, getCountAndPriceStr(dish.count, dish.price * dish.count));
-          } else {
-            this.line(str);
-          }
-        });
-      });
-      this.size(originSize);
-      return this;
-    }
+    // printFrontDeskDishs(dishes: {name: string; count: number; price: number}[], size=1): EscPosEncoder {
+    //   const originSize = this._size;
+    //   const countAndPriceLength = 10; // 价格和个数的长度
+    //   const getCountAndPriceStr = (count: number, price: number): string => {
+    //     const priceStr = price.toFixed(2);
+    //     const countStr = 'x' + count;
+    //     const spaceNum = countAndPriceLength - this.getStrWidth(countStr) - this.getStrWidth(priceStr);
+    //     return countStr + ' '.repeat(spaceNum<0?0:spaceNum) + priceStr;
+    //   };
+    //   this.size(size);
+    //   dishes.forEach((dish) => {
+    //     if (dish.count<=0) {
+    //       return;
+    //     }
+    //     const fixedWidthStrArr = this.splitByWidth(
+    //         dish.name,
+    //         this.singleCharLengthPerLine-countAndPriceLength-2
+    //     );
+    //     fixedWidthStrArr.forEach((str, index) => {
+    //       if (index === 0) {
+    //         this.oneLine(str, getCountAndPriceStr(dish.count, dish.price * dish.count));
+    //       } else {
+    //         this.line(str);
+    //       }
+    //     });
+    //   });
+    //   this.size(originSize);
+    //   return this;
+    // }
 
     /**
      * 后厨打印菜品，包含菜品名称，数量，不包含价格
@@ -258,29 +258,29 @@ export default class EscPosEncoder {
      * @param {number} size 字体大小,默认2
      * @returns {EscPosEncoder}  Return the EscPosEncoder, for easy chaining commands
      */
-    printChefDishs(dishes: {name: string; count: number}[], size=2): EscPosEncoder {
-      const originSize = this._size;
-      const countAndPriceLength = 3; // 价格和个数的长度
-      this.size(size);
-      dishes.forEach((dish) => {
-        const fixedWidthStrArr = this.splitByWidth(
-            dish.name,
-            this.singleCharLengthPerLine-countAndPriceLength
-        );
-        fixedWidthStrArr.forEach((str, index) => {
-          if (dish.count<=0) {
-            return;
-          }
-          if (index === 0) {
-            this.oneLine(str, `x${dish.count}`);
-          } else {
-            this.line(str);
-          }
-        });
-      });
-      this.size(originSize);
-      return this;
-    }
+    // printChefDishs(dishes: {name: string; count: number}[], size=2): EscPosEncoder {
+    //   const originSize = this._size;
+    //   const countAndPriceLength = 3; // 价格和个数的长度
+    //   this.size(size);
+    //   dishes.forEach((dish) => {
+    //     const fixedWidthStrArr = this.splitByWidth(
+    //         dish.name,
+    //         this.singleCharLengthPerLine-countAndPriceLength
+    //     );
+    //     fixedWidthStrArr.forEach((str, index) => {
+    //       if (dish.count<=0) {
+    //         return;
+    //       }
+    //       if (index === 0) {
+    //         this.oneLine(str, `x${dish.count}`);
+    //       } else {
+    //         this.line(str);
+    //       }
+    //     });
+    //   });
+    //   this.size(originSize);
+    //   return this;
+    // }
 
     /**
      * Change the code page
@@ -421,11 +421,11 @@ export default class EscPosEncoder {
      * @returns {EscPosEncoder}          Return the EscPosEncoder, for easy chaining commands
      *
      */
-    oneLine(str1: string, str2: string): EscPosEncoder {
-      const spaceNum = this.singleCharLengthPerLine - this.getStrWidth(str1) - this.getStrWidth(str2);
-      this.line(str1 + ' '.repeat(spaceNum<0?0:spaceNum) + str2);
-      return this;
-    }
+    // oneLine(str1: string, str2: string): EscPosEncoder {
+    //   const spaceNum = this.singleCharLengthPerLine - this.getStrWidth(str1) - this.getStrWidth(str2);
+    //   this.line(str1 + ' '.repeat(spaceNum<0?0:spaceNum) + str2);
+    //   return this;
+    // }
 
     /**
      * Underline text
